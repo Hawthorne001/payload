@@ -1276,15 +1276,14 @@
   resolved "https://registry.yarnpkg.com/@payloadcms/eslint-config/-/eslint-config-0.0.2.tgz#cadb97ccd6476204a38e057b3cf57dc80efb209f"
   integrity sha512-EcS7qyX4++eBP/MS4QgrFOzzplsVMaPDfEcxWYoH9OLJCUTlGz8UmfMZPWU7DeAuyehJdij+BywSrcprqun9rA==
 
-"@payloadcms/richtext-slate@latest":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@payloadcms/richtext-slate/-/richtext-slate-1.2.0.tgz#c8569fb2ee6dbe513ecb739907cc0ac283771516"
-  integrity sha512-PpeU7xDXPidLF2k35lRkxcI2gQmH/NajiAkD8ql6s75QVg0tyscEIfBIyw1U1CD2AA2CefgmEge4O+VQ+JkajA==
+"@payloadcms/richtext-slate@1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@payloadcms/richtext-slate/-/richtext-slate-1.5.1.tgz#0859932936958b290abc119cefbd9c82e8a54acc"
+  integrity sha512-dP4Vtn4nI5YS5G7XlL8y6aleS3659cDqqoT8X2340xBULXqAix5iAI+6ICjeZOj8Dyt70IW7UZ79BRchK02/Uw==
   dependencies:
     "@faceless-ui/modal" "2.0.1"
     i18next "22.5.1"
     is-hotkey "0.2.0"
-    react "18.2.0"
     react-i18next "11.18.6"
     slate "0.91.4"
     slate-history "0.86.0"
