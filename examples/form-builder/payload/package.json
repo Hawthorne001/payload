@@ -15,7 +15,7 @@
     "generate:graphQLSchema": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:graphQLSchema"
   },
   "dependencies": {
-    "@payloadcms/bundler-webpack": "latest",
+    "@payloadcms/bundler-webpack": "1.0.7",
     "@payloadcms/db-mongodb": "latest",
     "@payloadcms/richtext-slate": "latest",
     "@faceless-ui/modal": "^2.0.1",
