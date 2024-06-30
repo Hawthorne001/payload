@@ -12,15 +12,24 @@ import { AdminUrlUtil } from '../helpers/adminUrlUtil'
 import { initPayloadE2E } from '../helpers/configHelpers'
 import { RESTClient } from '../helpers/rest'
 import { adminThumbnailSrc } from './collections/admin-thumbnail'
-import { adminThumbnailSlug, audioSlug, mediaSlug, relationSlug } from './shared'
+import {
+  adminThumbnailSlug,
+  animatedTypeMedia,
+  audioSlug,
+  globalWithMedia,
+  mediaSlug,
+  relationSlug,
+} from './shared'
 
 const { beforeAll, describe } = test
 
 let client: RESTClient
 let mediaURL: AdminUrlUtil
+let animatedTypeMediaURL: AdminUrlUtil
 let audioURL: AdminUrlUtil
 let relationURL: AdminUrlUtil
 let adminThumbnailURL: AdminUrlUtil
+let globalURL: string
 
 describe('uploads', () => {
   let page: Page
@@ -33,9 +42,11 @@ describe('uploads', () => {
     await client.login()
 
     mediaURL = new AdminUrlUtil(serverURL, mediaSlug)
+    animatedTypeMediaURL = new AdminUrlUtil(serverURL, animatedTypeMedia)
     audioURL = new AdminUrlUtil(serverURL, audioSlug)
     relationURL = new AdminUrlUtil(serverURL, relationSlug)
     adminThumbnailURL = new AdminUrlUtil(serverURL, adminThumbnailSlug)
+    globalURL = new AdminUrlUtil(serverURL, globalWithMedia).global(globalWithMedia)
 
     const context = await browser.newContext()
     page = await context.newPage()
@@ -90,6 +101,26 @@ describe('uploads', () => {
     const filename = page.locator('.file-field__filename')
 
     await expect(filename).toHaveValue('image.png')
+
+    await saveDocAndAssert(page)
+  })
+
+  test('should create animated file upload', async () => {
+    await page.goto(animatedTypeMediaURL.create)
+
+    await page.setInputFiles('input[type="file"]', path.resolve(__dirname, './animated.webp'))
+    const animatedFilename = page.locator('.file-field__filename')
+
+    await expect(animatedFilename).toHaveValue('animated.webp')
+
+    await saveDocAndAssert(page)
+
+    await page.goto(animatedTypeMediaURL.create)
+
+    await page.setInputFiles('input[type="file"]', path.resolve(__dirname, './non-animated.webp'))
+    const nonAnimatedFileName = page.locator('.file-field__filename')
+
+    await expect(nonAnimatedFileName).toHaveValue('non-animated.webp')
 
     await saveDocAndAssert(page)
   })
@@ -184,7 +215,7 @@ describe('uploads', () => {
     // choose from existing
     await page.locator('.list-drawer__toggler').click()
 
-    await expect(page.locator('.cell-title')).toContainText('draft')
+    await expect(page.locator('.row-3 .cell-title')).toContainText('draft')
   })
 
   test('should restrict mimetype based on filterOptions', async () => {
@@ -321,6 +352,19 @@ describe('uploads', () => {
       // green and red squares should have different sizes (colors make the difference)
       expect(greenDoc.filesize).toEqual(1205)
       expect(redDoc.filesize).toEqual(1207)
+    })
+  })
+
+  describe('globals', () => {
+    test('should be able to crop media from a global', async () => {
+      await page.goto(globalURL)
+      await page.click('.upload__toggler.doc-drawer__toggler')
+      await page.setInputFiles('input[type="file"]', path.resolve(__dirname, './image.png'))
+      await page.click('.file-field__edit')
+      await page.click('.btn.edit-upload__save')
+      await saveDocAndAssert(page, '.drawer__content #action-save')
+      await saveDocAndAssert(page)
+      await expect(page.locator('.thumbnail img')).toBeVisible()
     })
   })
 })
