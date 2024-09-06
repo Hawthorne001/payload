@@ -18,8 +18,8 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx src"
   },
   "dependencies": {
-    "@payloadcms/bundler-webpack": "latest",
-    "@payloadcms/db-mongodb": "latest",
+    "@payloadcms/bundler-webpack": "1.0.7",
+    "@payloadcms/db-mongodb": "1.0.4",
     "@payloadcms/richtext-slate": "latest",
     "dotenv": "^8.2.0",
     "express": "^4.19.2",
