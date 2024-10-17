@@ -8,12 +8,18 @@ import { Uploads1 } from './collections/Upload1'
 import Uploads2 from './collections/Upload2'
 import AdminThumbnailCol from './collections/admin-thumbnail'
 import {
+  animatedTypeMedia,
   audioSlug,
   cropOnlySlug,
+  customFileNameMediaSlug,
   enlargeSlug,
   focalOnlySlug,
+  globalWithMedia,
   mediaSlug,
+  mediaWithRelationPreviewSlug,
+  mediaWithoutRelationPreviewSlug,
   reduceSlug,
+  relationPreviewSlug,
   relationSlug,
   versionSlug,
 } from './shared'
@@ -142,6 +148,77 @@ export default buildConfigWithDefaults({
         mimeTypes: ['image/png', 'image/jpg', 'image/jpeg'],
         staticDir: './object-fit',
         staticURL: '/object-fit',
+      },
+    },
+    {
+      slug: 'with-meta-data',
+      fields: [],
+      upload: {
+        imageSizes: [
+          {
+            name: 'sizeOne',
+            height: 300,
+            width: 400,
+          },
+        ],
+        mimeTypes: ['image/png', 'image/jpg', 'image/jpeg'],
+        staticDir: './with-meta-data',
+        withMetadata: true,
+      },
+    },
+    {
+      slug: 'without-meta-data',
+      fields: [],
+      upload: {
+        imageSizes: [
+          {
+            name: 'sizeTwo',
+            height: 400,
+            width: 300,
+          },
+        ],
+        mimeTypes: ['image/png', 'image/jpg', 'image/jpeg'],
+        staticDir: './without-meta-data',
+        withMetadata: false,
+      },
+    },
+    {
+      slug: 'with-only-jpeg-meta-data',
+      fields: [],
+      upload: {
+        imageSizes: [
+          {
+            name: 'sizeThree',
+            height: 400,
+            width: 300,
+            withoutEnlargement: false,
+          },
+        ],
+        staticDir: './with-only-jpeg-meta-data',
+        // eslint-disable-next-line @typescript-eslint/require-await
+        withMetadata: async ({ metadata }) => {
+          if (metadata.format === 'jpeg') {
+            return true
+          }
+          return false
+        },
+      },
+    },
+    {
+      slug: customFileNameMediaSlug,
+      fields: [],
+      upload: {
+        imageSizes: [
+          {
+            name: 'custom',
+            height: 500,
+            width: 500,
+            generateImageName: ({ extension, height, width, sizeName }) =>
+              `${sizeName}-${width}x${height}.${extension}`,
+          },
+        ],
+        mimeTypes: ['image/png', 'image/jpg', 'image/jpeg'],
+        staticDir: `./${customFileNameMediaSlug}`,
       },
     },
     {
@@ -313,6 +390,43 @@ export default buildConfigWithDefaults({
           'image/svg+xml',
           'image/tiff',
           'audio/mpeg',
+        ],
+      },
+    },
+    {
+      slug: animatedTypeMedia,
+      fields: [],
+      upload: {
+        staticDir: './media',
+        staticURL: '/media',
+        resizeOptions: {
+          position: 'center',
+          width: 200,
+          height: 200,
+        },
+        imageSizes: [
+          {
+            name: 'squareSmall',
+            width: 480,
+            height: 480,
+            position: 'centre',
+            withoutEnlargement: false,
+          },
+          {
+            name: 'undefinedHeight',
+            width: 300,
+            height: undefined,
+          },
+          {
+            name: 'undefinedWidth',
+            width: undefined,
+            height: 300,
+          },
+          {
+            name: 'undefinedAll',
+            width: undefined,
+            height: undefined,
+          },
         ],
       },
     },
@@ -490,6 +604,79 @@ export default buildConfigWithDefaults({
         drafts: true,
       },
     },
+    {
+      slug: mediaWithRelationPreviewSlug,
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+        },
+      ],
+      upload: {
+        displayPreview: true,
+      },
+    },
+    {
+      slug: mediaWithoutRelationPreviewSlug,
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+        },
+      ],
+      upload: true,
+    },
+    {
+      slug: relationPreviewSlug,
+      fields: [
+        {
+          name: 'imageWithPreview1',
+          type: 'upload',
+          relationTo: mediaWithRelationPreviewSlug,
+        },
+        {
+          name: 'imageWithPreview2',
+          type: 'upload',
+          relationTo: mediaWithRelationPreviewSlug,
+          displayPreview: true,
+        },
+        {
+          name: 'imageWithoutPreview1',
+          type: 'upload',
+          relationTo: mediaWithRelationPreviewSlug,
+          displayPreview: false,
+        },
+        {
+          name: 'imageWithoutPreview2',
+          type: 'upload',
+          relationTo: mediaWithoutRelationPreviewSlug,
+        },
+        {
+          name: 'imageWithPreview3',
+          type: 'upload',
+          relationTo: mediaWithoutRelationPreviewSlug,
+          displayPreview: true,
+        },
+        {
+          name: 'imageWithoutPreview3',
+          type: 'upload',
+          relationTo: mediaWithoutRelationPreviewSlug,
+          displayPreview: false,
+        },
+      ],
+    },
+  ],
+  globals: [
+    {
+      slug: globalWithMedia,
+      fields: [
+        {
+          type: 'upload',
+          name: 'media',
+          relationTo: cropOnlySlug,
+        },
+      ],
+    },
   ],
   onInit: async (payload) => {
     const uploadsDir = path.resolve(__dirname, './media')
@@ -530,6 +717,43 @@ export default buildConfigWithDefaults({
       },
     })
 
+    // Create animated type images
+    const animatedImageFilePath = path.resolve(__dirname, './animated.webp')
+    const animatedImageFile = await getFileByPath(animatedImageFilePath)
+
+    await payload.create({
+      collection: animatedTypeMedia,
+      data: {},
+      file: animatedImageFile,
+    })
+
+    await payload.create({
+      collection: versionSlug,
+      data: {
+        _status: 'published',
+        title: 'upload',
+      },
+      file: animatedImageFile,
+    })
+
+    const nonAnimatedImageFilePath = path.resolve(__dirname, './non-animated.webp')
+    const nonAnimatedImageFile = await getFileByPath(nonAnimatedImageFilePath)
+
+    await payload.create({
+      collection: animatedTypeMedia,
+      data: {},
+      file: nonAnimatedImageFile,
+    })
+
+    await payload.create({
+      collection: versionSlug,
+      data: {
+        _status: 'published',
+        title: 'upload',
+      },
+      file: nonAnimatedImageFile,
+    })
+
     // Create audio
     const audioFilePath = path.resolve(__dirname, './audio.mp3')
     const audioFile = await getFileByPath(audioFilePath)
@@ -563,6 +787,31 @@ export default buildConfigWithDefaults({
       file: {
         ...imageFile,
         name: `thumb-${imageFile.name}`,
+      },
+    })
+
+    // Create media with and without relation preview
+    const { id: uploadedImageWithPreview } = await payload.create({
+      collection: mediaWithRelationPreviewSlug,
+      data: {},
+      file: imageFile,
+    })
+
+    const { id: uploadedImageWithoutPreview } = await payload.create({
+      collection: mediaWithoutRelationPreviewSlug,
+      data: {},
+      file: imageFile,
+    })
+
+    await payload.create({
+      collection: relationPreviewSlug,
+      data: {
+        imageWithPreview1: uploadedImageWithPreview,
+        imageWithPreview2: uploadedImageWithPreview,
+        imageWithoutPreview1: uploadedImageWithPreview,
+        imageWithoutPreview2: uploadedImageWithoutPreview,
+        imageWithPreview3: uploadedImageWithoutPreview,
+        imageWithoutPreview3: uploadedImageWithoutPreview,
       },
     })
   },

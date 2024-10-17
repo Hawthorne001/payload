@@ -36,6 +36,8 @@ const useField = <T,>(options: Options): FieldType<T> => {
   const showError = valid === false && submitted
 
   const prevValid = useRef(valid)
+  const prevErrorMessage = useRef(field?.errorMessage)
+  const prevValue = useRef(value)
 
   // Method to return from `useField`, used to
   // update field values from field component(s)
@@ -54,9 +56,9 @@ const useField = <T,>(options: Options): FieldType<T> => {
       }
 
       dispatchField({
+        type: 'UPDATE',
         disableFormData: disableFormData || (hasRows && val > 0),
         path,
-        type: 'UPDATE',
         value: val,
       })
     },
@@ -110,6 +112,7 @@ const useField = <T,>(options: Options): FieldType<T> => {
                 config,
                 data: getData(),
                 operation,
+                previousValue: prevValue.current,
                 siblingData: getSiblingData(path),
                 t,
                 user,
@@ -126,18 +129,20 @@ const useField = <T,>(options: Options): FieldType<T> => {
 
         // Only dispatch if the validation result has changed
         // This will prevent unnecessary rerenders
-        if (valid !== prevValid.current) {
+        if (valid !== prevValid.current || errorMessage !== prevErrorMessage.current) {
           prevValid.current = valid
+          prevErrorMessage.current = errorMessage
 
           if (typeof dispatchField === 'function') {
             dispatchField({
+              type: 'UPDATE',
               condition,
               disableFormData:
                 disableFormData || (hasRows ? typeof value === 'number' && value > 0 : false),
               errorMessage,
               path,
+              previousValue: prevValue.current,
               rows: field?.rows,
-              type: 'UPDATE',
               valid,
               validate,
               value,

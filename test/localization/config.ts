@@ -2,12 +2,20 @@ import type { LocalizedPost } from './payload-types'
 
 import { buildConfigWithDefaults } from '../buildConfigWithDefaults'
 import { devUser } from '../credentials'
+import { englishLocale } from '../globals/config'
 import { ArrayCollection } from './collections/Array'
+import { BlocksCollection } from './collections/Blocks'
+import { Group } from './collections/Group'
+import { NestedArray } from './collections/NestedArray'
+import { NestedFields } from './collections/NestedFields'
 import { NestedToArrayAndBlock } from './collections/NestedToArrayAndBlock'
+import { RestrictedByLocaleCollection } from './collections/RestrictedByLocale'
+import { Tab } from './collections/Tab'
 import {
   blocksWithLocalizedSameName,
   defaultLocale,
   englishTitle,
+  hungarianLocale,
   localizedPostsSlug,
   localizedSortSlug,
   portugueseLocale,
@@ -38,6 +46,9 @@ const openAccess = {
 
 export default buildConfigWithDefaults({
   collections: [
+    BlocksCollection,
+    NestedArray,
+    NestedFields,
     {
       auth: true,
       fields: [
@@ -45,6 +56,18 @@ export default buildConfigWithDefaults({
           name: 'relation',
           relationTo: localizedPostsSlug,
           type: 'relationship',
+        },
+        {
+          name: 'assignedLocales',
+          type: 'select',
+          hasMany: true,
+          options: [defaultLocale, spanishLocale, portugueseLocale, 'ar'],
+        },
+        {
+          type: 'select',
+          name: 'roles',
+          options: ['admin', 'editor'],
+          defaultValue: 'admin',
         },
       ],
       slug: 'users',
@@ -64,6 +87,11 @@ export default buildConfigWithDefaults({
         },
         {
           name: 'description',
+          type: 'text',
+        },
+        {
+          name: 'localizedDescription',
+          localized: true,
           type: 'text',
         },
         {
@@ -107,6 +135,16 @@ export default buildConfigWithDefaults({
                   name: 'text',
                   type: 'text',
                 },
+                {
+                  name: 'nestedArray',
+                  type: 'array',
+                  fields: [
+                    {
+                      name: 'text',
+                      type: 'text',
+                    },
+                  ],
+                },
               ],
               slug: 'text',
             },
@@ -123,6 +161,41 @@ export default buildConfigWithDefaults({
           localized: true,
           required: true,
           type: 'blocks',
+        },
+        {
+          type: 'tabs',
+          tabs: [
+            {
+              name: 'myTab',
+              fields: [
+                {
+                  name: 'text',
+                  type: 'text',
+                },
+                {
+                  name: 'group',
+                  type: 'group',
+                  localized: true,
+                  fields: [
+                    {
+                      name: 'nestedArray2',
+                      type: 'array',
+                      fields: [
+                        {
+                          name: 'nestedText',
+                          type: 'text',
+                        },
+                      ],
+                    },
+                    {
+                      name: 'nestedText',
+                      type: 'text',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
       ],
       slug: withRequiredLocalizedFields,
@@ -215,6 +288,8 @@ export default buildConfigWithDefaults({
       slug: 'dummy',
     },
     NestedToArrayAndBlock,
+    Group,
+    Tab,
     {
       slug: localizedSortSlug,
       access: openAccess,
@@ -263,6 +338,7 @@ export default buildConfigWithDefaults({
         },
       ],
     },
+    RestrictedByLocaleCollection,
   ],
   globals: [
     {
@@ -306,6 +382,11 @@ export default buildConfigWithDefaults({
         label: 'Arabic',
         rtl: true,
       },
+      {
+        code: hungarianLocale,
+        label: 'Hungarian',
+        rtl: false,
+      },
     ],
   },
   onInit: async (payload) => {
@@ -331,6 +412,7 @@ export default buildConfigWithDefaults({
         email: devUser.email,
         password: devUser.password,
         relation: localizedPost.id,
+        assignedLocales: [englishLocale, spanishLocale],
       },
     })
 
@@ -365,6 +447,7 @@ export default buildConfigWithDefaults({
         title: relationEnglishTitle2,
       },
     })
+
     await payload.update({
       id: localizedPost.id,
       collection,
