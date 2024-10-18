@@ -46,12 +46,17 @@ const DefaultEditView: React.FC<DefaultEditViewProps> = (props) => {
   } = props
 
   const { setViewActions } = useActions()
-
   const { reportUpdate } = useDocumentEvents()
 
   const { auth } = collection
 
-  const classes = [baseClass, isEditing && `${baseClass}--is-editing`].filter(Boolean).join(' ')
+  const classes = [
+    baseClass,
+    `${baseClass}--${collection.slug}`,
+    isEditing && `${baseClass}--is-editing`,
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   const location = useLocation()
 

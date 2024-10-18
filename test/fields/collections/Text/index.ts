@@ -41,6 +41,16 @@ const TextFields: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'defaultString',
+      defaultValue: defaultText,
+      type: 'text',
+    },
+    {
+      name: 'defaultEmptyString',
+      defaultValue: '',
+      type: 'text',
+    },
+    {
       name: 'defaultFunction',
       defaultValue: () => defaultText,
       type: 'text',
@@ -155,6 +165,33 @@ const TextFields: CollectionConfig = {
         disableListColumn: false,
         disableListFilter: true,
       },
+    },
+    {
+      name: 'array',
+      type: 'array',
+      fields: [
+        {
+          name: 'texts',
+          type: 'text',
+          hasMany: true,
+        },
+      ],
+    },
+    {
+      name: 'blocks',
+      type: 'blocks',
+      blocks: [
+        {
+          slug: 'block',
+          fields: [
+            {
+              name: 'texts',
+              type: 'text',
+              hasMany: true,
+            },
+          ],
+        },
+      ],
     },
   ],
   slug: textFieldsSlug,

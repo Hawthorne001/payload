@@ -236,23 +236,22 @@ describe('Relationships', () => {
             password: 'fwddsefe',
           },
         })
-        await Promise.all([
-          payload.create({
-            collection: 'movieReviews',
-            data: {
-              likes: [user3.id, user2.id, user.id, user4.id],
-              movieReviewer: user.id,
-              visibility: 'public',
-            },
-          }),
-          payload.create({
-            collection: 'movieReviews',
-            data: {
-              movieReviewer: user2.id,
-              visibility: 'public',
-            },
-          }),
-        ])
+        await payload.create({
+          collection: 'movieReviews',
+          data: {
+            likes: [user3.id, user2.id, user.id, user4.id],
+            movieReviewer: user.id,
+            visibility: 'public',
+          },
+        })
+
+        await payload.create({
+          collection: 'movieReviews',
+          data: {
+            movieReviewer: user2.id,
+            visibility: 'public',
+          },
+        })
 
         const query = await payload.find({
           collection: 'movieReviews',
@@ -666,6 +665,37 @@ describe('Relationships', () => {
 
         expect(query.docs).toHaveLength(1)
         expect(query.docs[0].id).toStrictEqual(firstLevelID)
+      })
+
+      it('should allow querying within array nesting', async () => {
+        const page = await payload.create({
+          collection: 'pages',
+          data: {
+            menu: [
+              {
+                label: 'hello',
+              },
+            ],
+          },
+        })
+
+        const rel = await payload.create({ collection: 'rels-to-pages', data: { page: page.id } })
+
+        const resEquals = await payload.find({
+          collection: 'rels-to-pages',
+          where: { 'page.menu.label': { equals: 'hello' } },
+        })
+
+        expect(resEquals.totalDocs).toBe(1)
+        expect(resEquals.docs[0].id).toBe(rel.id)
+
+        const resIn = await payload.find({
+          collection: 'rels-to-pages',
+          where: { 'page.menu.label': { in: ['hello'] } },
+        })
+
+        expect(resIn.totalDocs).toBe(1)
+        expect(resIn.docs[0].id).toBe(rel.id)
       })
     })
 

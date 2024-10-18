@@ -58,6 +58,11 @@ type Args = {
     [tableName: string]: Record<string, unknown>[]
   }
   texts: Record<string, unknown>[]
+  /**
+   * Set to a locale code if this set of fields is traversed within a
+   * localized array or block field
+   */
+  withinArrayOrBlockLocale?: string
 }
 
 export const traverseFields = ({
@@ -81,6 +86,7 @@ export const traverseFields = ({
   row,
   selects,
   texts,
+  withinArrayOrBlockLocale,
 }: Args) => {
   fields.forEach((field) => {
     let columnName = ''
@@ -117,6 +123,7 @@ export const traverseFields = ({
                 relationshipsToDelete,
                 selects,
                 texts,
+                withinArrayOrBlockLocale: localeKey,
               })
 
               arrays[arrayTableName] = arrays[arrayTableName].concat(newRows)
@@ -138,6 +145,7 @@ export const traverseFields = ({
           relationshipsToDelete,
           selects,
           texts,
+          withinArrayOrBlockLocale,
         })
 
         arrays[arrayTableName] = arrays[arrayTableName].concat(newRows)
@@ -169,6 +177,7 @@ export const traverseFields = ({
                 relationshipsToDelete,
                 selects,
                 texts,
+                withinArrayOrBlockLocale: localeKey,
               })
             }
           })
@@ -187,6 +196,7 @@ export const traverseFields = ({
           relationshipsToDelete,
           selects,
           texts,
+          withinArrayOrBlockLocale,
         })
       }
 
@@ -197,6 +207,9 @@ export const traverseFields = ({
       if (typeof data[field.name] === 'object' && data[field.name] !== null) {
         if (field.localized) {
           Object.entries(data[field.name]).forEach(([localeKey, localeData]) => {
+            // preserve array ID if there is
+            localeData._uuid = data.id || data._uuid
+
             traverseFields({
               adapter,
               arrays,
@@ -218,9 +231,14 @@ export const traverseFields = ({
               row,
               selects,
               texts,
+              withinArrayOrBlockLocale: localeKey,
             })
           })
         } else {
+          // preserve array ID if there is
+          const groupData = data[field.name] as Record<string, unknown>
+          groupData._uuid = data.id || data._uuid
+
           traverseFields({
             adapter,
             arrays,
@@ -228,7 +246,7 @@ export const traverseFields = ({
             blocks,
             blocksToDelete,
             columnPrefix: `${columnName}_`,
-            data: data[field.name] as Record<string, unknown>,
+            data: groupData,
             existingLocales,
             fieldPrefix: `${fieldName}_`,
             fields: field.fields,
@@ -241,6 +259,7 @@ export const traverseFields = ({
             row,
             selects,
             texts,
+            withinArrayOrBlockLocale,
           })
         }
       }
@@ -254,6 +273,9 @@ export const traverseFields = ({
           if (typeof data[tab.name] === 'object' && data[tab.name] !== null) {
             if (tab.localized) {
               Object.entries(data[tab.name]).forEach(([localeKey, localeData]) => {
+                // preserve array ID if there is
+                localeData._uuid = data.id || data._uuid
+
                 traverseFields({
                   adapter,
                   arrays,
@@ -275,9 +297,14 @@ export const traverseFields = ({
                   row,
                   selects,
                   texts,
+                  withinArrayOrBlockLocale: localeKey,
                 })
               })
             } else {
+              const tabData = data[tab.name] as Record<string, unknown>
+              // preserve array ID if there is
+              tabData._uuid = data.id || data._uuid
+
               traverseFields({
                 adapter,
                 arrays,
@@ -285,7 +312,7 @@ export const traverseFields = ({
                 blocks,
                 blocksToDelete,
                 columnPrefix: `${columnPrefix || ''}${toSnakeCase(tab.name)}_`,
-                data: data[tab.name] as Record<string, unknown>,
+                data: tabData,
                 existingLocales,
                 fieldPrefix: `${fieldPrefix || ''}${tab.name}_`,
                 fields: tab.fields,
@@ -298,6 +325,7 @@ export const traverseFields = ({
                 row,
                 selects,
                 texts,
+                withinArrayOrBlockLocale,
               })
             }
           }
@@ -322,6 +350,7 @@ export const traverseFields = ({
             row,
             selects,
             texts,
+            withinArrayOrBlockLocale,
           })
         }
       })
@@ -339,6 +368,7 @@ export const traverseFields = ({
         existingLocales,
         fieldPrefix,
         fields: field.fields,
+        forcedLocale,
         locales,
         numbers,
         parentTableName,
@@ -348,6 +378,7 @@ export const traverseFields = ({
         row,
         selects,
         texts,
+        withinArrayOrBlockLocale,
       })
     }
 
@@ -384,6 +415,7 @@ export const traverseFields = ({
 
         transformRelationship({
           baseRow: {
+            locale: withinArrayOrBlockLocale,
             path: relationshipPath,
           },
           data: fieldData,
@@ -416,6 +448,7 @@ export const traverseFields = ({
       } else if (Array.isArray(fieldData)) {
         transformTexts({
           baseRow: {
+            locale: withinArrayOrBlockLocale,
             path: textPath,
           },
           data: fieldData,
@@ -447,6 +480,7 @@ export const traverseFields = ({
       } else if (Array.isArray(fieldData)) {
         transformNumbers({
           baseRow: {
+            locale: withinArrayOrBlockLocale,
             path: numberPath,
           },
           data: fieldData,
@@ -479,6 +513,7 @@ export const traverseFields = ({
         const newRows = transformSelects({
           id: data._uuid || data.id,
           data: data[field.name],
+          locale: withinArrayOrBlockLocale,
         })
 
         selects[selectTableName] = selects[selectTableName].concat(newRows)

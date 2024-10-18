@@ -13,6 +13,7 @@ import MinimalTemplate from '../../templates/Minimal'
 import { useConfig } from '../../utilities/Config'
 import Button from '../Button'
 import * as PopupList from '../Popup/PopupButtonList'
+import { baseBeforeDuplicate } from './baseBeforeDuplicate'
 import './index.scss'
 
 const baseClass = 'duplicate'
@@ -65,6 +66,8 @@ const Duplicate: React.FC<Props> = ({ id, slug, collection }) => {
         })
         let data = await response.json()
 
+        data = baseBeforeDuplicate({ collection, data, locale })
+
         if (typeof collection.admin.hooks?.beforeDuplicate === 'function') {
           data = await collection.admin.hooks.beforeDuplicate({
             collection,
@@ -72,6 +75,8 @@ const Duplicate: React.FC<Props> = ({ id, slug, collection }) => {
             locale,
           })
         }
+
+        delete data['id']
 
         if (!duplicateID) {
           if ('createdAt' in data) delete data.createdAt

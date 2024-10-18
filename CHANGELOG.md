@@ -1,3 +1,263 @@
+## [2.30.3](https://github.com/payloadcms/payload/compare/v2.30.2...v2.30.3) (2024-10-18)
+
+
+### Bug Fixes
+
+* **db-postgres:** migrate:create errors with previous schemas ([#8786](https://github.com/payloadcms/payload/issues/8786)) ([e9c1222](https://github.com/payloadcms/payload/commit/e9c12221824a9a180991722135d22ff91d07ef11))
+* duplicate with select hasMany fields ([#8734](https://github.com/payloadcms/payload/issues/8734)) ([c8ed645](https://github.com/payloadcms/payload/commit/c8ed6454a733bea09ae620517c4894701999e119))
+
+## [2.30.2](https://github.com/payloadcms/payload/compare/v2.30.1...v2.30.2) (2024-10-17)
+
+### Bug Fixes
+
+* applies resize after cropping if `resizeOptions` are defined ([#8535](https://github.com/payloadcms/payload/issues/8535)) ([f2284f3](https://github.com/payloadcms/payload/commit/f2284f3d1b420c543d9eee9929f961db4cbef8a1))
+* calculates correct aspect ratio dimensions on sharp based files ([#8510](https://github.com/payloadcms/payload/issues/8510)) ([9d05b82](https://github.com/payloadcms/payload/commit/9d05b82dc67b967e55176b92f7b20d4486883201)), closes [#8317](https://github.com/payloadcms/payload/issues/8317)
+* **db-postgres:** build indexes for relationships ([#8446](https://github.com/payloadcms/payload/issues/8446)) ([d05e3b0](https://github.com/payloadcms/payload/commit/d05e3b0411c2e705bd7a26e93ba55f2b7532e41b))
+* **db-postgres:** port many various fixes from 3.0 ([#8468](https://github.com/payloadcms/payload/issues/8468)) ([1347b6c](https://github.com/payloadcms/payload/commit/1347b6cc36c33043755b4e31d7731ba19b8c985f))
+* **db-postgres:** select hasMany nested to array + tab/group ([#8739](https://github.com/payloadcms/payload/issues/8739)) ([0efc610](https://github.com/payloadcms/payload/commit/0efc6102104729a162912157a7e34293ec9764a5))
+* **richtext-lexical:** add target _blank for new-tab in linkFeature ([#8571](https://github.com/payloadcms/payload/issues/8571)) ([61e8ce1](https://github.com/payloadcms/payload/commit/61e8ce17439301cb16aee92887e97a69cac4e044)), closes [#8569](https://github.com/payloadcms/payload/issues/8569)
+
+## [2.30.1](https://github.com/payloadcms/payload/compare/v2.30.0...v2.30.1) (2024-10-02)
+
+
+### Bug Fixes
+
+* **db-mongodb:** properly filters out `number` field values with the `exists` operator filter ([#8415](https://github.com/payloadcms/payload/issues/8415)) ([0586f23](https://github.com/payloadcms/payload/commit/0586f236bbf04163a0d9b226772849cb3d977864)), closes [#8181](https://github.com/payloadcms/payload/issues/8181)
+* sorting by id incorrectly orders by version.id ([#8450](https://github.com/payloadcms/payload/issues/8450)) ([1d38e6d](https://github.com/payloadcms/payload/commit/1d38e6d5d5b56a91aa8f59a461d40f28b1750f8c))
+
+## [2.30.0](https://github.com/payloadcms/payload/compare/v2.29.0...v2.30.0) (2024-09-27)
+
+* export toast from react toastify in payload ([#8438](https://github.com/payloadcms/payload/issues/8438)) ([17fc2d1](https://github.com/payloadcms/payload/commit/17fc2d13d06b6de01f839c27fd706bc0d6a185eb))
+
+## [2.29.0](https://github.com/payloadcms/payload/compare/v2.28.0...v2.29.0) (2024-09-25)
+
+
+### Features
+
+* add new option to disable JOI validation ([#8067](https://github.com/payloadcms/payload/issues/8067)) ([28a0650](https://github.com/payloadcms/payload/commit/28a065072fcad2dc768e44d79609eb5ab8a3fdfd))
+
+
+### Bug Fixes
+
+* **db-postgres:** localized items in arrays with versions ([#8334](https://github.com/payloadcms/payload/issues/8334)) ([c86526b](https://github.com/payloadcms/payload/commit/c86526b5c81ff484e66fbe6e7c727fdcc1f93c77))
+* **db-postgres:** querying on array within a relationship field ([#8153](https://github.com/payloadcms/payload/issues/8153)) ([170ea5b](https://github.com/payloadcms/payload/commit/170ea5badcff154514b8166ac92177d89a3fa5f8))
+* **db-postgres:** sanitize tab/group path for table name ([#8010](https://github.com/payloadcms/payload/issues/8010)) ([ba7a043](https://github.com/payloadcms/payload/commit/ba7a043a99f58fad39a62ac471eeb7309a39bba0))
+* treat empty strings as null / undefined for `exists` queries ([#8336](https://github.com/payloadcms/payload/issues/8336)) ([31d0b30](https://github.com/payloadcms/payload/commit/31d0b309fe5df1e37ed2a938959c1ef87834d987)), closes [#7714](https://github.com/payloadcms/payload/issues/7714)
+
+## [2.28.0](https://github.com/payloadcms/payload/compare/v2.27.0...v2.28.0) (2024-09-04)
+
+
+### Features
+
+* collections can use custom database operations ([#7675](https://github.com/payloadcms/payload/issues/7675)) ([6ba293c](https://github.com/payloadcms/payload/commit/6ba293c0f84f91bf89cf089a20e47de130013ebb))
+
+
+### Bug Fixes
+
+* **db-postgres:** migration exit codes ([#7873](https://github.com/payloadcms/payload/issues/7873)) ([25e9bc6](https://github.com/payloadcms/payload/commit/25e9bc62dbcbabcb3619cf83e3dc0110e0a4cabf)), closes [#7031](https://github.com/payloadcms/payload/issues/7031)
+* **db-postgres:** query hasMany text/number in array/blocks ([#8033](https://github.com/payloadcms/payload/issues/8033)) ([96a624a](https://github.com/payloadcms/payload/commit/96a624ad5c5259b197b4ca793d8419d1e827de9c))
+* **plugin-cloud:** better logging on static handler ([#7924](https://github.com/payloadcms/payload/issues/7924)) ([1f09348](https://github.com/payloadcms/payload/commit/1f0934877ce5aabb771c936c3677a26d2ef006ec))
+
+## [2.27.0](https://github.com/payloadcms/payload/compare/v2.26.0...v2.27.0) (2024-08-26)
+
+
+### Features
+
+* add support for custom image size file names ([#7637](https://github.com/payloadcms/payload/issues/7637)) ([f976270](https://github.com/payloadcms/payload/commit/f97627092cabe4eabbebefa75afc53579188386b))
+* upgrade react-toastify dependency, and upgrade to pnpm v9 in our monorepo ([#7667](https://github.com/payloadcms/payload/issues/7667)) ([94d18e8](https://github.com/payloadcms/payload/commit/94d18e8d747588efce225cde0b621db9b513e7c1))
+
+
+### Bug Fixes
+
+* update state of field if either `valid` status or `errorMessage` changes ([#7632](https://github.com/payloadcms/payload/issues/7632)) ([c624eea](https://github.com/payloadcms/payload/commit/c624eea0d868938f4603860fa25be3df580ba7fe)), closes [#6413](https://github.com/payloadcms/payload/issues/6413)
+
+## [2.26.0](https://github.com/payloadcms/payload/compare/v2.25.0...v2.26.0) (2024-08-09)
+
+
+### Features
+
+* adds classnames to edit, list views ([#7595](https://github.com/payloadcms/payload/issues/7595)) ([7f39afa](https://github.com/payloadcms/payload/commit/7f39afa1928b118451138e811ea71a04fce021d5))
+* adds upload's relationship thumbnail ([#5015](https://github.com/payloadcms/payload/issues/5015)) ([39e110e](https://github.com/payloadcms/payload/commit/39e110e6331efff0ca8ca7174780076243a016de))
+* **ui:** expose custom errors in delete many ([#7439](https://github.com/payloadcms/payload/issues/7439)) ([3e780b9](https://github.com/payloadcms/payload/commit/3e780b98155550f877021996dd094ba435dff81b))
+
+
+### Bug Fixes
+
+* **db-postgres:** localized array inside blocks field ([#7458](https://github.com/payloadcms/payload/issues/7458)) ([a308d63](https://github.com/payloadcms/payload/commit/a308d6384f9724c5ff330382070a5803fbcf167c)), closes [#5240](https://github.com/payloadcms/payload/issues/5240)
+* deprecated `inflight` package ([#6558](https://github.com/payloadcms/payload/issues/6558)) ([eca1517](https://github.com/payloadcms/payload/commit/eca1517237c78983c192f4bafa92a86d94a0de9e)), closes [#6492](https://github.com/payloadcms/payload/issues/6492)
+* enable `relationship` & `upload` field population in `versions` ([#7533](https://github.com/payloadcms/payload/issues/7533)) ([9865ae9](https://github.com/payloadcms/payload/commit/9865ae998b9aeb5d72724023976bb203133e19ff))
+* filtering by non-poly `relationships` with `not_equals` operator ([#7573](https://github.com/payloadcms/payload/issues/7573)) ([efa56ce](https://github.com/payloadcms/payload/commit/efa56cefc15a48cd45b3aaba2eddacca79e1be30)), closes [#5212](https://github.com/payloadcms/payload/issues/5212) [#6278](https://github.com/payloadcms/payload/issues/6278)
+* filtering by polymorphic `relationships` with `drafts` enabled ([#7565](https://github.com/payloadcms/payload/issues/7565)) ([907d7d1](https://github.com/payloadcms/payload/commit/907d7d1d3a89ed22bb991a1f238bb77d54e3e173)), closes [#6880](https://github.com/payloadcms/payload/issues/6880)
+* retained date milliseconds ([#7393](https://github.com/payloadcms/payload/issues/7393)) ([9c9e689](https://github.com/payloadcms/payload/commit/9c9e6896a502de209c6cccf63cc5cfc0f0143bf3)), closes [#6108](https://github.com/payloadcms/payload/issues/6108)
+* prevents `hasMany` text going outside of input boundaries ([#7454](https://github.com/payloadcms/payload/issues/7454)) ([1a0ef48](https://github.com/payloadcms/payload/commit/1a0ef4824b3d6548d36e7f28a2030640361c0655)), closes [#6034](https://github.com/payloadcms/payload/issues/6034)
+* previousValue missing from ValidateOptions type ([#6931](https://github.com/payloadcms/payload/issues/6931)) ([fca5a40](https://github.com/payloadcms/payload/commit/fca5a404dbf3b440b428e55cf5e03db647f9a453))
+* render singular label for `ArrayCell` when length is 1 ([#7585](https://github.com/payloadcms/payload/issues/7585)) ([fc4d24a](https://github.com/payloadcms/payload/commit/fc4d24aa8889ac9be76059a92478d5532b142b5c)), closes [#6099](https://github.com/payloadcms/payload/issues/6099)
+
+## [2.25.0](https://github.com/payloadcms/payload/compare/v2.24.2...v2.25.0) (2024-07-26)
+
+
+### Features
+
+* allows metadata to be appended to the file of the output media ([#7295](https://github.com/payloadcms/payload/issues/7295)) ([3c5cce4](https://github.com/payloadcms/payload/commit/3c5cce4c6f108f87e87b091bbfec976423de73a2))
+* **db-mongodb:** adds new optional `collation` feature flag behind mongodb collation option ([#7359](https://github.com/payloadcms/payload/issues/7359)) ([9750bc2](https://github.com/payloadcms/payload/commit/9750bc217ee7d63732a34908c84eb88b88dac0a8)), closes [#7349](https://github.com/payloadcms/payload/issues/7349)
+
+
+### Bug Fixes
+
+* properly handles `0` value number fields in list view ([#7364](https://github.com/payloadcms/payload/issues/7364)) ([5321098](https://github.com/payloadcms/payload/commit/5321098d7eada43838f6d5c69f3233c150fe0afa)), closes [#5510](https://github.com/payloadcms/payload/issues/5510)
+* preserves objectids in deepCopyObject ([#7385](https://github.com/payloadcms/payload/issues/7385)) ([1348483](https://github.com/payloadcms/payload/commit/134848364801c72cc773ef7b48854306d1b9bac3))
+* relaxes equality check for relationship options in filter ([#7344](https://github.com/payloadcms/payload/issues/7344)) ([468e544](https://github.com/payloadcms/payload/commit/468e5441f16775134d915ec7caddb17b817d3408))
+* supports null values in query strings ([#5241](https://github.com/payloadcms/payload/issues/5241)) ([c57591b](https://github.com/payloadcms/payload/commit/c57591bc4fb8d28b7de16a111faffea7d3e11f8d))
+
+## [2.24.2](https://github.com/payloadcms/payload/compare/v2.24.1...v2.24.2) (2024-07-24)
+
+
+### Features
+
+* **db-mongodb:** add jsonParse flag to mongooseAdapter that preserves existing, untracked MongoDB data types ([#7338](https://github.com/payloadcms/payload/issues/7338)) ([f96cf59](https://github.com/payloadcms/payload/commit/f96cf593cedcae0d8ed55f9a70e8e4e77917a876))
+
+
+### Bug Fixes
+
+* allow autosave relationship drawers to function properly ([#7325](https://github.com/payloadcms/payload/issues/7325)) ([69e7b7a](https://github.com/payloadcms/payload/commit/69e7b7a158c38058ece54a97bfa79e65192774a6))
+* **db-mongodb:** removes precedence of regular chars over international chars in sort ([#6923](https://github.com/payloadcms/payload/issues/6923)) ([0058660](https://github.com/payloadcms/payload/commit/0058660b3f8bd820abb4494ff53fa67f49f0f6b4)), closes [#6719](https://github.com/payloadcms/payload/issues/6719)
+* fetches and sets permissions before setting user ([#7337](https://github.com/payloadcms/payload/issues/7337)) ([8259611](https://github.com/payloadcms/payload/commit/8259611ce60e23f6298a07564d5f6dd2966d61ff))
+* **plugin-stripe:** properly types async webhooks ([#7316](https://github.com/payloadcms/payload/issues/7316)) ([c6da99b](https://github.com/payloadcms/payload/commit/c6da99b4d1b986089bb697486a7825db66323078))
+
+## [2.24.1](https://github.com/payloadcms/payload/compare/v2.24.0...v2.24.1) (2024-07-22)
+
+
+### Bug Fixes
+
+* aliases AfterMe, AfterLogout, and AfterRefresh hook types ([#7146](https://github.com/payloadcms/payload/issues/7146)) ([20377bb](https://github.com/payloadcms/payload/commit/20377bb22c867552e412c1cafd16869399aadd68))
+* exports fallback hook types to ensure backwards compatibility ([#7217](https://github.com/payloadcms/payload/issues/7217)) ([1864577](https://github.com/payloadcms/payload/commit/18645771c86664f1246f0fb599c8265a4cd1d6c0))
+* resizes images first before applying focal point ([#7278](https://github.com/payloadcms/payload/issues/7278)) ([1b208c7](https://github.com/payloadcms/payload/commit/1b208c7addf56ae8a1af5e408b001b3e5f080a38))
+* uploads from drawer and focal point positioning ([#7244](https://github.com/payloadcms/payload/issues/7244)) ([0841d5a](https://github.com/payloadcms/payload/commit/0841d5a35ee00650c703231a08fc9a361861ba67))
+
+## [2.24.0](https://github.com/payloadcms/payload/compare/v2.23.1...v2.24.0) (2024-07-16)
+
+
+### Features
+
+* adds ability to upload files from a remote url ([#7087](https://github.com/payloadcms/payload/issues/7087)) ([84d214f](https://github.com/payloadcms/payload/commit/84d214f99207ad78a466b8c16eb36e29f57cd0e3))
+* **db-mongodb:** allows mongoose schemaOptions to be configured ([#7099](https://github.com/payloadcms/payload/issues/7099)) ([51474fa](https://github.com/payloadcms/payload/commit/51474fa661ae24ab8fc0d13001fafc0f35216c1e))
+
+
+### Bug Fixes
+
+* ensures access query runs with locale when present ([#6981](https://github.com/payloadcms/payload/issues/6981)) ([a5492af](https://github.com/payloadcms/payload/commit/a5492afad672e19dd35b1f5370b51f22656f334c))
+
+## [2.23.1](https://github.com/payloadcms/payload/compare/v2.23.0...v2.23.1) (2024-06-28)
+
+### Bug Fixes
+
+* remove unused refresh arg, this affected me/refresh hooks ([#6976](https://github.com/payloadcms/payload/issues/6976)) ([c82d2ca](https://github.com/payloadcms/payload/commit/77e8ce980ef0bcb0380b499dd1ccdfd36199b707))
+
+## [2.23.0](https://github.com/payloadcms/payload/compare/v2.22.2...v2.23.0) (2024-06-28)
+
+
+### Features
+
+* adds me and refresh hooks ([#6968](https://github.com/payloadcms/payload/issues/6968)) ([c82d2ca](https://github.com/payloadcms/payload/commit/c82d2caa29422083e97affc99a033296d78892d6))
+
+
+### Bug Fixes
+
+* **richtext-lexical:** html converters unnecessarily growing over time ([#6963](https://github.com/payloadcms/payload/issues/6963)) ([cf52d64](https://github.com/payloadcms/payload/commit/cf52d64d984d98ab782ca33f20b43c935ce60683))
+
+## [2.22.2](https://github.com/payloadcms/payload/compare/v2.22.1...v2.22.2) (2024-06-26)
+
+
+### Bug Fixes
+
+* return exp and strategy from auth ([#6943](https://github.com/payloadcms/payload/issues/6943)) ([ea18735](https://github.com/payloadcms/payload/commit/ea18735d3b2d2a96989009130e3724aab487e520))
+
+## [2.22.1](https://github.com/payloadcms/payload/compare/v2.22.0...v2.22.1) (2024-06-25)
+
+
+### Bug Fixes
+
+* graphql query concurrency issues ([#6857](https://github.com/payloadcms/payload/issues/6857)) ([bb911cc](https://github.com/payloadcms/payload/commit/bb911cc7eca1eeef15ade8eb043c0056c281e311))
+* sends cropped image pixel values to server instead of percent values ([#6852](https://github.com/payloadcms/payload/issues/6852)) ([8747743](https://github.com/payloadcms/payload/commit/874774375f8beada9bac0a8ef3e77f63adc30834))
+
+## [2.22.0](https://github.com/payloadcms/payload/compare/v2.21.0...v2.22.0) (2024-06-20)
+
+
+### Features
+
+* passes prev value through to validate functions ([#6805](https://github.com/payloadcms/payload/issues/6805)) ([0a51de7](https://github.com/payloadcms/payload/commit/0a51de7623d7c7790db52f0cc3e431b5ec3436f2))
+
+
+### Bug Fixes
+
+* adjust json field schema for defaultValue ([#6872](https://github.com/payloadcms/payload/issues/6872)) ([58427ff](https://github.com/payloadcms/payload/commit/58427ffae3e0c1159fae817850b4c1770f43b9b9))
+* array row validation messages ([#6780](https://github.com/payloadcms/payload/issues/6780)) ([68ea693](https://github.com/payloadcms/payload/commit/68ea693a88714951661464917d5df10a416a5ca0))
+* cannot use empty string in defaultValue on text-like fields ([#6842](https://github.com/payloadcms/payload/issues/6842)) ([3364385](https://github.com/payloadcms/payload/commit/336438506ce5e54065f59a0352531e0255f5313d))
+* corrects redirect with lonely slash on login ([#6784](https://github.com/payloadcms/payload/issues/6784)) ([dae56e6](https://github.com/payloadcms/payload/commit/dae56e60eef9e6456d9c51e7fc3b995a32e56f5e))
+* **db-postgres:** cascade delete FKs on hasMany relationships ([#6735](https://github.com/payloadcms/payload/issues/6735)) ([9ecc6c8](https://github.com/payloadcms/payload/commit/9ecc6c889929a07d1163919eac14c9b33b90208a))
+* **payload, db-mongodb:** querying relationships with `in` & `not_in` ([#6773](https://github.com/payloadcms/payload/issues/6773)) ([f6ba3be](https://github.com/payloadcms/payload/commit/f6ba3befaeb02edca66f04fbc2ea91d2d2549d08)), closes [#6741](https://github.com/payloadcms/payload/issues/6741)
+* **plugin-cloud-storage:** missing error handling for invalid plugin config, leading to unexpected webpack errors ([#6786](https://github.com/payloadcms/payload/issues/6786)) ([015aafd](https://github.com/payloadcms/payload/commit/015aafda758938028c37a96e9b5fe62902757b09))
+* **ui:** withinCollapsible always false from useCollapsible provider ([#6783](https://github.com/payloadcms/payload/issues/6783)) ([9f0aaf0](https://github.com/payloadcms/payload/commit/9f0aaf066e76210a85faf43b2b5dc5129ccf3879)), closes [#6760](https://github.com/payloadcms/payload/issues/6760)
+* unflattening json objects containing keys with periods ([#6834](https://github.com/payloadcms/payload/issues/6834)) ([025306f](https://github.com/payloadcms/payload/commit/025306f9e685c030956dad3b0f0158c1dce49668)), closes [#5378](https://github.com/payloadcms/payload/issues/5378)
+* upgrade swc, fixing swc issues on linux ([#6809](https://github.com/payloadcms/payload/issues/6809)) ([1c986a9](https://github.com/payloadcms/payload/commit/1c986a98321163c921cb071a160b6fa9fc8bd9ee))
+
+
+## [2.21.0](https://github.com/payloadcms/payload/compare/v2.20.0...v2.21.0) (2024-06-14)
+
+
+### Features
+
+* draft validation ([#6746](https://github.com/payloadcms/payload/issues/6746)) ([ff70fd9](https://github.com/payloadcms/payload/commit/ff70fd9813ec7dc14bf54d3457c25e145fe01699))
+
+
+### Bug Fixes
+
+* adjust version status pill when unpublished ([#6744](https://github.com/payloadcms/payload/issues/6744)) ([b7e8529](https://github.com/payloadcms/payload/commit/b7e852993beaaa465e38caa36e75e870819516b5))
+* use correct time for isLocked check ([#6052](https://github.com/payloadcms/payload/issues/6052)) ([3b4bb30](https://github.com/payloadcms/payload/commit/3b4bb3065a6d2ac2f7d6aafd0fb4a35b580f3662))
+* unable to save animated file types with undefined image sizes ([#6733](https://github.com/payloadcms/payload/issues/6733)) ([e40570b](https://github.com/payloadcms/payload/commit/e40570bd0d64660bb2ae5b5785b4c85c684ca9ab)), closes [#6727](https://github.com/payloadcms/payload/issues/6727)
+
+## [2.20.0](https://github.com/payloadcms/payload/compare/v2.19.3...v2.20.0) (2024-06-11)
+
+
+### Features
+
+* **ui:** updates draft/published version pills ([#6732](https://github.com/payloadcms/payload/issues/6732)) ([ed86b15](https://github.com/payloadcms/payload/commit/ed86b15242ccbd737f3fe80103afc7d8c4cc6915))
+
+
+### Bug Fixes
+
+* adds multi select inputs for `number` & `text` fields in where builder ([#6662](https://github.com/payloadcms/payload/issues/6662)) ([e3003b4](https://github.com/payloadcms/payload/commit/e3003b443fd3b472670ade228c174c7f755b1732))
+* create sharp file for `fileHasAdjustments` files or `fileIsAnimated` files ([#6710](https://github.com/payloadcms/payload/issues/6710)) ([921a5c0](https://github.com/payloadcms/payload/commit/921a5c065d6089f0118ad8be7adbf75614c8db9c))
+* enable SaveDraft button when creating new documents ([#6672](https://github.com/payloadcms/payload/issues/6672)) ([63bc6ae](https://github.com/payloadcms/payload/commit/63bc6ae52f63adf98f442c2d7992461e7f5f86e4)), closes [#6671](https://github.com/payloadcms/payload/issues/6671) [/github.com/payloadcms/payload/commit/8f03cd7c789eda7613ddced0d45a32afe49b1e01#diff-b7c978f47b1f3beff95c78ad95078e600624cbcd7ac10f9378cc4ad6803db244L75-R79](https://github.com/payloadcms//github.com/payloadcms/payload/commit/8f03cd7c789eda7613ddced0d45a32afe49b1e01/issues/diff-b7c978f47b1f3beff95c78ad95078e600624cbcd7ac10f9378cc4ad6803db244L75-R79)
+* handles localized nested relationship fields in versions ([#6679](https://github.com/payloadcms/payload/issues/6679)) ([8a62298](https://github.com/payloadcms/payload/commit/8a622984e7ce4a2439d5d63e2689404652f8c96b))
+* live preview device position when using zoom ([#6667](https://github.com/payloadcms/payload/issues/6667)) ([9525511](https://github.com/payloadcms/payload/commit/9525511e8bc6bc3fbd7e21e36596404604f1c109))
+* only use `metadata.pages` for height if animated ([#6729](https://github.com/payloadcms/payload/issues/6729)) ([2f9ed34](https://github.com/payloadcms/payload/commit/2f9ed34d13d94070db40b1eabd04655d2e13e094))
+* removes `array` & `blocks` & `group` fields from sort ([#6574](https://github.com/payloadcms/payload/issues/6574)) ([507e095](https://github.com/payloadcms/payload/commit/507e0954b2743012f0b53c396d49461120a02b1a)), closes [#6469](https://github.com/payloadcms/payload/issues/6469)
+* withinCollapsible should be undefined by default ([#6666](https://github.com/payloadcms/payload/issues/6666)) ([37c8386](https://github.com/payloadcms/payload/commit/37c8386a51172966057df3477517d160e1c4a9a7)), closes [#6658](https://github.com/payloadcms/payload/issues/6658)
+
+## [2.19.3](https://github.com/payloadcms/payload/compare/v2.19.2...v2.19.3) (2024-06-07)
+
+
+### Bug Fixes
+
+* scopes uploadEdits to documents, hoists action to doc provider ([#6664](https://github.com/payloadcms/payload/issues/6664)) ([373cb00](https://github.com/payloadcms/payload/commit/373cb0013902b52aba455542e10402316da4b2f4))
+
+## [2.19.2](https://github.com/payloadcms/payload/compare/v2.19.1...v2.19.2) (2024-06-06)
+
+
+### Bug Fixes
+
+* cascade draft arg when querying globals with graphql ([#6651](https://github.com/payloadcms/payload/issues/6651)) ([ac8c209](https://github.com/payloadcms/payload/commit/ac8c2096af641a6886e4543ee65c9790e45f080f))
+* filtered out `disableListColumn` fields reappeared after toggling other fields ([#6636](https://github.com/payloadcms/payload/issues/6636)) ([626be15](https://github.com/payloadcms/payload/commit/626be155784dda181276bb87617433822a0accf3))
+* resizing animated images ([#6621](https://github.com/payloadcms/payload/issues/6621)) ([67c0b0e](https://github.com/payloadcms/payload/commit/67c0b0e6e0b5b190f6a916b59ba02f8c18479e18)), closes [#2181](https://github.com/payloadcms/payload/issues/2181) [#6146](https://github.com/payloadcms/payload/issues/6146)
+
+## [2.19.1](https://github.com/payloadcms/payload/compare/v2.19.0...v2.19.1) (2024-06-04)
+
+
+### Bug Fixes
+
+* override ajv dependency version to 8.14.0 wherever possible ([#6618](https://github.com/payloadcms/payload/issues/6618)) ([e44ce81](https://github.com/payloadcms/payload/commit/e44ce819cefddeaaf20b2b7ce804e94a9272baf1))
+
 ## [2.19.0](https://github.com/payloadcms/payload/compare/v2.18.3...v2.19.0) (2024-06-04)
 
 
