@@ -265,10 +265,23 @@ export interface ArrayField {
         id?: string | null
       }[]
     | null
-  disableSortItems?: {
-    text: string
-    id?: string | null
-  }[]
+  disableSort?:
+    | {
+        text: string
+        id?: string | null
+      }[]
+    | null
+  nestedArrayLocalized?:
+    | {
+        array?:
+          | {
+              text?: string | null
+              id?: string | null
+            }[]
+          | null
+        id?: string | null
+      }[]
+    | null
   updatedAt: string
   createdAt: string
 }
@@ -373,6 +386,53 @@ export interface BlockField {
       }
   )[]
   collapsedByDefaultBlocks: (
+    | {
+        text: string
+        richText?:
+          | {
+              [k: string]: unknown
+            }[]
+          | null
+        id?: string | null
+        blockName?: string | null
+        blockType: 'localizedContent'
+      }
+    | {
+        number: number
+        id?: string | null
+        blockName?: string | null
+        blockType: 'localizedNumber'
+      }
+    | {
+        subBlocks?:
+          | (
+              | {
+                  text: string
+                  id?: string | null
+                  blockName?: string | null
+                  blockType: 'text'
+                }
+              | {
+                  number: number
+                  id?: string | null
+                  blockName?: string | null
+                  blockType: 'number'
+                }
+            )[]
+          | null
+        id?: string | null
+        blockName?: string | null
+        blockType: 'localizedSubBlocks'
+      }
+    | {
+        textInCollapsible?: string | null
+        textInRow?: string | null
+        id?: string | null
+        blockName?: string | null
+        blockType: 'localizedTabs'
+      }
+  )[]
+  disableSort: (
     | {
         text: string
         richText?:
@@ -575,6 +635,8 @@ export interface TextField {
   text: string
   localizedText?: string | null
   i18nText?: string | null
+  defaultString?: string | null
+  defaultEmptyString?: string | null
   defaultFunction?: string | null
   defaultAsync?: string | null
   overrideLength?: string | null
@@ -590,6 +652,20 @@ export interface TextField {
   withMaxRows?: string[] | null
   disableListColumnText?: string | null
   disableListFilterText?: string | null
+  array?:
+    | {
+        texts?: string[] | null
+        id?: string | null
+      }[]
+    | null
+  blocks?:
+    | {
+        texts?: string[] | null
+        id?: string | null
+        blockName?: string | null
+        blockType: 'block'
+      }[]
+    | null
   updatedAt: string
   createdAt: string
 }
@@ -754,6 +830,59 @@ export interface GroupField {
       }
     }
   }
+  camelCaseGroup?: {
+    array?:
+      | {
+          text?: string | null
+          array?:
+            | {
+                text?: string | null
+                id?: string | null
+              }[]
+            | null
+          id?: string | null
+        }[]
+      | null
+    nesGroup?: {
+      arr?:
+        | {
+            text?: string | null
+            id?: string | null
+          }[]
+        | null
+    }
+  }
+  localizedGroupArr?: {
+    array?:
+      | {
+          text?: string | null
+          id?: string | null
+        }[]
+      | null
+  }
+  localizedGroupSelect?: {
+    select?: ('one' | 'two')[] | null
+  }
+  localizedGroupRel?: {
+    rel?: (string | null) | TextField
+  }
+  localizedGroupManyRel?: {
+    email?: (string | TextField)[] | null
+  }
+  localizedGroupPolyRel?: {
+    email?: {
+      relationTo: 'text-fields'
+      value: string | TextField
+    } | null
+  }
+  localizedGroupPolyHasManyRel?: {
+    email?:
+      | {
+          relationTo: 'text-fields'
+          value: string | TextField
+        }[]
+      | null
+  }
   updatedAt: string
   createdAt: string
 }
@@ -764,6 +893,7 @@ export interface GroupField {
 export interface RowField {
   id: string
   title: string
+  disableListColumnText?: string | null
   field_with_width_a?: string | null
   field_with_width_b?: string | null
   field_within_collapsible_a?: string | null
@@ -814,6 +944,17 @@ export interface JsonField {
     | number
     | boolean
     | null
+  group?: {
+    jsonWithinGroup?:
+      | {
+          [k: string]: unknown
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null
+  }
   updatedAt: string
   createdAt: string
 }
@@ -835,6 +976,20 @@ export interface NumberField {
   validatesHasMany?: number[] | null
   localizedHasMany?: number[] | null
   withMinRows?: number[] | null
+  array?:
+    | {
+        numbers?: number[] | null
+        id?: string | null
+      }[]
+    | null
+  blocks?:
+    | {
+        numbers?: number[] | null
+        id?: string | null
+        blockName?: string | null
+        blockType: 'block'
+      }[]
+    | null
   updatedAt: string
   createdAt: string
 }
@@ -892,6 +1047,8 @@ export interface RelationshipField {
           }
       )[]
     | null
+  relationNoHasManyNonPolymorphic?: (string | null) | TextField
+  relationHasManyNonPolymorphic?: (string | TextField)[] | null
   relationToSelf?: (string | null) | RelationshipField
   relationToSelfSelectOnly?: (string | null) | RelationshipField
   relationWithDynamicDefault?: (string | null) | User
@@ -1001,6 +1158,15 @@ export interface SelectField {
   select?: ('one' | 'two' | 'three') | null
   selectReadOnly?: ('one' | 'two' | 'three') | null
   selectHasMany?: ('one' | 'two' | 'three' | 'four' | 'five' | 'six')[] | null
+  array?:
+    | {
+        selectHasMany?: ('one' | 'two' | 'three' | 'four' | 'five' | 'six')[] | null
+        group?: {
+          selectHasMany?: ('one' | 'two' | 'three' | 'four' | 'five' | 'six')[] | null
+        }
+        id?: string | null
+      }[]
+    | null
   selectHasManyLocalized?: ('one' | 'two')[] | null
   selectI18n?: ('one' | 'two' | 'three') | null
   simple?: ('One' | 'Two' | 'Three') | null
@@ -1089,10 +1255,12 @@ export interface TabsField {
     }[]
     text?: string | null
     defaultValue?: string | null
-    arrayInRow?: {
-      text: string
-      id?: string | null
-    }[]
+    arrayInRow?:
+      | {
+          textInArrayInRow?: string | null
+          id?: string | null
+        }[]
+      | null
   }
   namedTabWithDefaultValue: {
     defaultValue?: string | null
@@ -1108,6 +1276,20 @@ export interface TabsField {
     beforeChange?: boolean | null
     afterChange?: boolean | null
     afterRead?: boolean | null
+  }
+  camelCaseTab: {
+    array?:
+      | {
+          text?: string | null
+          array?:
+            | {
+                text?: string | null
+                id?: string | null
+              }[]
+            | null
+          id?: string | null
+        }[]
+      | null
   }
   textarea?: string | null
   anotherText: string
@@ -1138,6 +1320,8 @@ export interface Upload {
   filesize?: number | null
   width?: number | null
   height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1155,6 +1339,8 @@ export interface Uploads2 {
   filesize?: number | null
   width?: number | null
   height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1176,6 +1362,8 @@ export interface Uploads3 {
   filesize?: number | null
   width?: number | null
   height?: number | null
+  focalX?: number | null
+  focalY?: number | null
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

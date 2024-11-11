@@ -1,15 +1,20 @@
-name: label-author
+name: triage
 
 on:
   pull_request:
-    types: [opened]
+    types:
+      - opened
   issues:
-    types: [opened]
+    types:
+      - opened
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
   contents: read
-  pull-requests: write
   issues: write
+  pull-requests: write
 
 jobs:
   debug-context:
@@ -18,10 +23,10 @@ jobs:
       - name: View context attributes
         uses: actions/github-script@v7
         with:
-          script: console.log(context)
+          script: console.log({ context })
 
   label-created-by:
-    name: Label pr/issue on opening
+    name: label-on-open
     runs-on: ubuntu-latest
     steps:
       - name: Tag with 'created-by'
@@ -42,6 +47,8 @@ jobs:
               'PatrikKozak',
               'tylandavis',
               'paulpopus',
+              'r1tsuu',
+              'GermanJablo',
             ];
 
             const type = context.payload.pull_request ? 'pull_request' : 'issue';
@@ -78,3 +85,18 @@ jobs:
               labels: [label],
             });
             console.log(`Added '${label}' label.`);
+
+  triage:
+    name: initial-triage
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ./.github/actions/triage
+        with:
+          reproduction-comment: '.github/comments/invalid-reproduction.md'
+          reproduction-link-section: '### Link to the code that reproduces this issue(.*)### Reproduction Steps'
+          reproduction-issue-labels: 'validate-reproduction'
+          tag-only: 'true'

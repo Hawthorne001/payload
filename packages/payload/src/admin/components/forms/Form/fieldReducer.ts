@@ -89,6 +89,7 @@ export function fieldReducer(state: Fields, action: FieldAction): Fields {
               'errorMessage',
               'initialValue',
               'passesCondition',
+              'previousValue',
               'rows',
               'valid',
               'validate',
@@ -226,6 +227,15 @@ export function fieldReducer(state: Fields, action: FieldAction): Fields {
 
       const duplicateRowState = deepCopyObject(rows[rowIndex])
       if (duplicateRowState.id) duplicateRowState.id = new ObjectID().toHexString()
+
+      for (const key of Object.keys(duplicateRowState).filter((key) => key.endsWith('.id'))) {
+        const idState = duplicateRowState[key]
+
+        if (idState && typeof idState.value === 'string' && ObjectID.isValid(idState.value)) {
+          duplicateRowState[key].value = new ObjectID().toHexString()
+          duplicateRowState[key].initialValue = new ObjectID().toHexString()
+        }
+      }
 
       // If there are subfields
       if (Object.keys(duplicateRowState).length > 0) {
