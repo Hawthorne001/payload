@@ -21,7 +21,7 @@
     "express": "^4.19.2",
     "payload": "latest",
     "handlebars": "^4.7.7",
-    "inline-css": "^4.0.2"
+    "inline-css": "^4.0.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
