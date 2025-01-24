@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "latest",
-    "@payloadcms/db-mongodb": "latest",
+    "@payloadcms/db-mongodb": "3.18.0",
     "@payloadcms/richtext-slate": "latest",
     "@payloadcms/plugin-nested-docs": "latest",
     "dotenv": "^8.2.0",
