@@ -17,13 +17,13 @@
   "dependencies": {
     "@payloadcms/bundler-webpack": "latest",
     "@payloadcms/db-mongodb": "latest",
-    "@payloadcms/richtext-slate": "latest",
+    "@payloadcms/richtext-slate": "3.0.0",
     "@faceless-ui/modal": "^2.0.1",
     "@payloadcms/plugin-form-builder": "^1.0.12",
     "@payloadcms/plugin-seo": "^1.0.8",
     "dotenv": "^8.2.0",
     "express": "^4.19.2",
-    "payload": "latest"
+    "payload": "3.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
