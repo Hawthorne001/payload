@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.0",
+    "@apollo/client": "^3.13.8",
     "@faceless-ui/css-grid": "^1.2.0",
     "@faceless-ui/modal": "^2.0.1",
     "escape-html": "^1.0.3",
