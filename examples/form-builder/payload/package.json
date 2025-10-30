@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "latest",
-    "@payloadcms/db-mongodb": "latest",
+    "@payloadcms/db-mongodb": "1.0.4",
     "@payloadcms/richtext-slate": "latest",
     "@faceless-ui/modal": "^2.0.1",
     "@payloadcms/plugin-form-builder": "^1.0.12",
