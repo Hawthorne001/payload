@@ -25,9 +25,9 @@
     "@payloadcms/richtext-slate": "latest",
     "dotenv": "^8.2.0",
     "escape-html": "^1.0.3",
-    "express": "^4.19.2",
+    "express": "^4.22.0",
     "next": "^13.4.8",
-    "payload": "latest",
+    "payload": "3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
